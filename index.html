@@ -1,0 +1,777 @@
+<title>Gegenkraftwerk</title>
+<style>
+  :root {
+    --ink: #eef1f1;
+    --ink-raised: #e2e7e6;
+    --ink-panel: #dae0df;
+    --line: #b9c2c1;
+    --text-high: #10151a;
+    --text-low: #4a565c;
+    --text-faint: #6e7a80;
+    --accent: #a86c00;
+    --accent-ink: #ffffff;
+    --accent-dim: #c98f0022;
+    --rust: #9c3b1c;
+    --rust-dim: #9c3b1c1a;
+    --focus: #0b6e6e;
+    --grid-line: #10151a12;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ink: #0e131a;
+      --ink-raised: #141b23;
+      --ink-panel: #182029;
+      --line: #2b3540;
+      --text-high: #f1efe4;
+      --text-low: #a9b3bd;
+      --text-faint: #7c8791;
+      --accent: #f3b807;
+      --accent-ink: #14181d;
+      --accent-dim: #f3b80722;
+      --rust: #e0774a;
+      --rust-dim: #e0774a22;
+      --focus: #5fd6d6;
+      --grid-line: #f1efe40d;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ink: #0e131a;
+    --ink-raised: #141b23;
+    --ink-panel: #182029;
+    --line: #2b3540;
+    --text-high: #f1efe4;
+    --text-low: #a9b3bd;
+    --text-faint: #7c8791;
+    --accent: #f3b807;
+    --accent-ink: #14181d;
+    --accent-dim: #f3b80722;
+    --rust: #e0774a;
+    --rust-dim: #e0774a22;
+    --focus: #5fd6d6;
+    --grid-line: #f1efe40d;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--ink);
+    color: var(--text-high);
+    font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--accent); color: var(--accent-ink); }
+
+  h1, h2, h3, .eyebrow, .stamp, .stat-value, button, .btn {
+    font-family: ui-sans-serif, "Arial Narrow", "Helvetica Neue Condensed Bold",
+      "Roboto Condensed", Arial, sans-serif;
+    font-stretch: condensed;
+  }
+
+  h1, h2, h3 { text-wrap: balance; margin: 0; }
+
+  a { color: inherit; }
+
+  :focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+  }
+
+  .mono, .stat-value, .stat-label, .kicker, .tag {
+    font-family: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .shell {
+    max-width: 76rem;
+    margin: 0 auto;
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  .prose {
+    max-width: 42rem;
+  }
+
+  .prose p + p { margin-top: 1.1em; }
+
+  /* ---------- Header / nav ---------- */
+
+  header.top {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: color-mix(in srgb, var(--ink) 88%, transparent);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 0.85rem;
+  }
+
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    font-size: 1.05rem;
+    text-transform: uppercase;
+  }
+
+  .brand-mark {
+    display: inline-block;
+    width: 0.6em;
+    height: 1.05em;
+    background: var(--accent);
+    transform: skewX(-12deg);
+  }
+
+  nav.top-links {
+    display: flex;
+    gap: clamp(0.75rem, 2vw, 1.75rem);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  nav.top-links a {
+    text-decoration: none;
+    color: var(--text-low);
+    border-bottom: 1px solid transparent;
+    padding-bottom: 0.15rem;
+  }
+
+  nav.top-links a:hover { color: var(--text-high); border-color: var(--accent); }
+
+  /* ---------- Hero ---------- */
+
+  .hero {
+    position: relative;
+    padding-block: clamp(3.5rem, 9vw, 6.5rem) clamp(3rem, 7vw, 5rem);
+    overflow: hidden;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(60% 55% at 18% 8%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 70%);
+    pointer-events: none;
+  }
+
+  .kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--rust);
+    border: 1px solid var(--rust);
+    padding: 0.3em 0.7em;
+    background: var(--rust-dim);
+  }
+
+  .kicker::before { content: "▲"; font-size: 0.75em; }
+
+  .hero h1 {
+    margin-top: 1.1rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.005em;
+    font-size: clamp(2.5rem, 5.4vw + 1rem, 5.1rem);
+    line-height: 0.98;
+    max-width: 16ch;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    margin-top: 1.4rem;
+    max-width: 40rem;
+    font-size: clamp(1.05rem, 1.1vw + 0.7rem, 1.28rem);
+    color: var(--text-low);
+  }
+
+  .hero-sub strong { color: var(--text-high); }
+
+  .hero-ctas {
+    margin-top: 2.1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    align-items: center;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    text-decoration: none;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 0.85rem;
+    padding: 0.85em 1.4em;
+    border: 1px solid var(--accent);
+    color: var(--accent-ink);
+    background: var(--accent);
+    transition: transform 0.15s ease;
+  }
+
+  .btn.ghost {
+    background: transparent;
+    color: var(--text-high);
+    border-color: var(--line);
+  }
+
+  .btn:hover { transform: translateY(-1px); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn:hover { transform: none; }
+  }
+
+  /* ---------- Section scaffolding ---------- */
+
+  section { padding-block: clamp(2.75rem, 6vw, 4.75rem); }
+
+  section + section { border-top: 1px solid var(--line); }
+
+  .section-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  .tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    color: var(--text-faint);
+    text-transform: uppercase;
+  }
+
+  h2 {
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: clamp(1.55rem, 2.1vw + 1rem, 2.35rem);
+    letter-spacing: -0.005em;
+    max-width: 22ch;
+  }
+
+  .lede {
+    font-size: 1.15rem;
+    color: var(--text-low);
+    max-width: 46rem;
+  }
+
+  /* ---------- Stat strip ---------- */
+
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin-top: 2.25rem;
+  }
+
+  .stat {
+    background: var(--ink);
+    padding: 1.4rem 1.3rem;
+  }
+
+  .stat-value {
+    font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .stat-label {
+    margin-top: 0.6rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+
+  /* ---------- Panel with corner ticks ---------- */
+
+  .panel {
+    position: relative;
+    border: 1px solid var(--line);
+    background: var(--ink-raised);
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+  }
+
+  .tick {
+    position: absolute;
+    width: 0.6rem;
+    height: 0.6rem;
+    border: 1px solid var(--accent);
+  }
+
+  .tick.tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+  .tick.tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
+  .tick.bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
+  .tick.br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+  /* ---------- Compare table ---------- */
+
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin-top: 2.25rem;
+  }
+
+  @media (max-width: 42rem) {
+    .compare { grid-template-columns: 1fr; }
+  }
+
+  .compare-col { background: var(--ink); padding: clamp(1.4rem, 3vw, 2rem); }
+
+  .compare-col.us { background: var(--ink-raised); }
+
+  .compare-head {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: 1.05rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 1.1rem;
+  }
+
+  .compare-head .dot {
+    width: 0.6rem;
+    height: 0.6rem;
+    background: var(--text-faint);
+    flex: none;
+  }
+
+  .compare-col.us .compare-head .dot { background: var(--accent); }
+
+  .compare-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 0.65rem;
+    border-bottom: 1px dashed var(--line);
+    font-size: 0.95rem;
+  }
+
+  .compare-row:last-child { border-bottom: none; }
+
+  .compare-row dt {
+    color: var(--text-faint);
+    font-size: 0.78rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    font-family: ui-monospace, "SF Mono", Consolas, monospace;
+    max-width: 11ch;
+  }
+
+  .compare-row dd {
+    margin: 0;
+    text-align: right;
+    font-weight: 600;
+  }
+
+  .compare-col.us .compare-row dd { color: var(--accent); }
+
+  /* ---------- Criteria list ---------- */
+
+  .criteria {
+    list-style: none;
+    margin: 2rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  .criteria li {
+    background: var(--ink);
+    display: flex;
+    gap: 1rem;
+    padding: 1.1rem 1.3rem;
+    align-items: flex-start;
+  }
+
+  .criteria .mark {
+    flex: none;
+    width: 1.6rem;
+    height: 1.6rem;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: ui-monospace, monospace;
+    font-size: 0.85rem;
+    margin-top: 0.1rem;
+  }
+
+  .criteria strong { display: block; font-family: Georgia, serif; }
+
+  .criteria span.note { color: var(--text-low); font-size: 0.95rem; }
+
+  /* ---------- Join panel ---------- */
+
+  .join {
+    background: var(--ink-panel);
+    border: 1px solid var(--line);
+    padding: clamp(1.75rem, 4vw, 3rem);
+  }
+
+  .stamp {
+    display: inline-block;
+    border: 2px solid var(--rust);
+    color: var(--rust);
+    padding: 0.35em 0.8em;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    transform: rotate(-2deg);
+  }
+
+  .join-contact {
+    margin-top: 1.4rem;
+    font-family: ui-monospace, "SF Mono", Consolas, monospace;
+    font-size: 1.05rem;
+    color: var(--text-faint);
+  }
+
+  .join-contact .placeholder {
+    color: var(--text-low);
+    border-bottom: 1px dashed var(--line);
+  }
+
+  /* ---------- Footer ---------- */
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding-block: 2.5rem;
+  }
+
+  .legal {
+    max-width: 46rem;
+    font-size: 0.82rem;
+    color: var(--text-faint);
+    line-height: 1.6;
+  }
+
+  .legal + .legal { margin-top: 0.9rem; }
+
+  .foot-row {
+    margin-top: 1.75rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+</style>
+
+<header class="top">
+  <div class="shell top-row">
+    <div class="brand"><span class="brand-mark" aria-hidden="true"></span>Gegenkraftwerk</div>
+    <nav class="top-links" aria-label="Sprungmarken">
+      <a href="#lage">Die Lage</a>
+      <a href="#idee">Die Idee</a>
+      <a href="#zahlen">Die Zahlen</a>
+      <a href="#mitmachen">Mitmachen</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="shell">
+      <span class="kicker">Offener Brief &amp; Projektskizze · August 2026</span>
+      <h1>Danke, Katherina&nbsp;Reiche,<br>für die <em>Gelegenheit.</em></h1>
+      <p class="hero-sub">
+        Ihr Kapazitätsmarkt zahlt <strong>bis zu 3,66&nbsp;Mio.&nbsp;€ pro Megawatt</strong> an
+        jeden, der ein neues Gaskraftwerk baut — 15&nbsp;Jahre garantiert, bezahlt von allen
+        Stromkund:innen. Wir nehmen das Angebot an. Nur nicht für die Dividende.
+      </p>
+      <div class="hero-ctas">
+        <a class="btn" href="#idee">Wie das funktioniert</a>
+        <a class="btn ghost" href="#mitmachen">Mitstreiter:in werden</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="lage">
+    <div class="shell">
+      <div class="section-head">
+        <div>
+          <span class="tag">01 — Die Lage</span>
+          <h2>Ein Förderprogramm, gebaut für Konzerne</h2>
+        </div>
+        <p class="lede">
+          Seit dem 22.&nbsp;Juli 2026 ist das StromVKG Gesetz. Am 8.&nbsp;September startet die
+          erste Ausschreibung. Das Geld fließt an fast jeden mit genug Kapital — nur nicht an
+          Batteriespeicher.
+        </p>
+      </div>
+
+      <div class="stat-strip">
+        <div class="stat">
+          <div class="stat-value">244.000&nbsp;€</div>
+          <div class="stat-label">Pro MW &amp; Jahr, Höchstwert der Ausschreibung</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">15 Jahre</div>
+          <div class="stat-label">Garantierte Laufzeit ab Zuschlag</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">3,66&nbsp;Mio.&nbsp;€</div>
+          <div class="stat-label">Nominal pro MW über die gesamte Laufzeit</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">0&nbsp;€</div>
+          <div class="stat-label">Davon reserviert für Batteriespeicher</div>
+        </div>
+      </div>
+
+      <div class="prose" style="margin-top: 2.25rem;">
+        <p>
+          Batteriespeicher und Biomethan sind von den lukrativsten Segmenten der Ausschreibung
+          strukturell ausgeschlossen — die sogenannte <strong>„10+1-Regel“</strong>. Der
+          Speicherverband BVES hat deshalb Beschwerde bei der EU-Kommission eingelegt: fehlende
+          Technologieoffenheit, fehlender Wettbewerb, fehlende Berücksichtigung genau der
+          Flexibilität, die eine Energiewende mit mehr PV und Wind eigentlich braucht.
+        </p>
+        <p>
+          Das Ergebnis: Große Energiekonzerne bauen neue, hochsubventionierte Gaskraftwerke und
+          verbuchen die Kapazitätszahlung als Gewinn. Der Netzausbau für mehr Solarstrom bleibt
+          das Problem von jemand anderem.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="idee">
+    <div class="shell">
+      <div class="section-head">
+        <div>
+          <span class="tag">02 — Die Idee</span>
+          <h2>Dieselbe Förderung. Ein anderer Zweck.</h2>
+        </div>
+      </div>
+
+      <div class="panel">
+        <span class="tick tl" aria-hidden="true"></span>
+        <span class="tick tr" aria-hidden="true"></span>
+        <span class="tick bl" aria-hidden="true"></span>
+        <span class="tick br" aria-hidden="true"></span>
+        <div class="prose">
+          <p>
+            <strong>Gegenkraftwerk</strong> ist der Versuch, dieselbe Fördermechanik zu nutzen,
+            ohne dabei ihr Zweck zu werden. Mitstreiter:innen stellen jeweils einen eigenen,
+            containerisierten 1-MW-Gasgenerator auf und nehmen an derselben StromVKG-Ausschreibung
+            teil wie die großen Versorger.
+          </p>
+          <p>
+            Der Unterschied: Wir deckeln unsere eigene Rendite bewusst im <strong>einstelligen
+            Bereich</strong>. Alles, was darüber hinaus an Kapazitätserlösen reinkommt, fließt in
+            netz- und verbrauchsdienliche Batteriespeicher an genau den Standorten, wo sie mehr
+            Solar- und Windstrom ins Netz bringen — nicht in eine Bilanz, aus der am Ende eine
+            Dividende wird.
+          </p>
+          <p>
+            Konkret: Jede Einheit kombiniert einen <strong>1-MW-Gascontainer</strong> mit rund
+            <strong>5&nbsp;MWh Batteriespeicher</strong> am selben Standort. Der Generator
+            amortisiert sich über die Kapazitätszahlung in etwa 3–4&nbsp;Jahren — der Rest der
+            15-jährigen Förderlaufzeit finanziert die Batterie mit.
+          </p>
+          <p>
+            Kein Almosen, kein Verein: eine reguläre, wirtschaftlich tragfähige Beteiligung — nur
+            mit einem anderen Ziel für den Überschuss.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="zahlen">
+    <div class="shell">
+      <div class="section-head">
+        <div>
+          <span class="tag">03 — Die Zahlen</span>
+          <h2>Zwei Wege, dieselbe Förderung zu nutzen</h2>
+        </div>
+      </div>
+
+      <dl class="compare">
+        <div class="compare-col">
+          <div class="compare-head"><span class="dot" aria-hidden="true"></span>Konzern-Modell</div>
+          <div class="compare-row">
+            <dt>Eigenrendite</dt>
+            <dd>Marktüblich, zweistellig angestrebt</dd>
+          </div>
+          <div class="compare-row">
+            <dt>Überschuss</dt>
+            <dd>Dividende, Aktienrückkauf</dd>
+          </div>
+          <div class="compare-row">
+            <dt>Speicherausbau</dt>
+            <dd>0 €</dd>
+          </div>
+          <div class="compare-row">
+            <dt>Anlagengröße</dt>
+            <dd>Zentral, hunderte MW</dd>
+          </div>
+          <div class="compare-row">
+            <dt>Batterie</dt>
+            <dd>0 MWh</dd>
+          </div>
+        </div>
+        <div class="compare-col us">
+          <div class="compare-head"><span class="dot" aria-hidden="true"></span>Gegenkraftwerk</div>
+          <div class="compare-row">
+            <dt>Eigenrendite</dt>
+            <dd>Einstellig, gedeckelt</dd>
+          </div>
+          <div class="compare-row">
+            <dt>Überschuss</dt>
+            <dd>Netz-/verbrauchsdienliche Batterien</dd>
+          </div>
+          <div class="compare-row">
+            <dt>Speicherausbau</dt>
+            <dd>Der eigentliche Zweck</dd>
+          </div>
+          <div class="compare-row">
+            <dt>Anlagengröße</dt>
+            <dd>Dezentral, 1&nbsp;MW pro Standort</dd>
+          </div>
+          <div class="compare-row">
+            <dt>Batterie</dt>
+            <dd>≈ 5&nbsp;MWh pro Einheit</dd>
+          </div>
+        </div>
+      </dl>
+
+      <p class="lede" style="margin-top: 1.75rem;">
+        Der Generator kostet, mit Mengenrabatt bei gemeinsamer Beschaffung, grob
+        570.000–700.000&nbsp;€ und amortisiert sich über die Kapazitätszahlung in etwa
+        3–4&nbsp;Jahren. Der Rest der Förderlaufzeit finanziert rund 5&nbsp;MWh Batterie
+        (≈ 2&nbsp;Mio.&nbsp;€) dazu — inklusive Puffer für Netzanschluss, Wechselrichter
+        und Sicherheiten. Alles danach ist der Teil, über den wir gemeinsam entscheiden.
+      </p>
+    </div>
+  </section>
+
+  <section id="wer">
+    <div class="shell">
+      <div class="section-head">
+        <div>
+          <span class="tag">04 — Wen wir suchen</span>
+          <h2>Kapital, Standort oder beides</h2>
+        </div>
+      </div>
+
+      <ul class="criteria">
+        <li>
+          <span class="mark" aria-hidden="true">1MW</span>
+          <div>
+            <strong>Betriebe mit bestehendem Netzanschluss</strong>
+            <span class="note">Ihr habt schon ~1&nbsp;MW Anschlussleistung und Platz für Generator plus Batterie (ca. 1–2 Standardcontainer)? Genau danach suchen wir zuerst.</span>
+          </div>
+        </li>
+        <li>
+          <span class="mark" aria-hidden="true">€</span>
+          <div>
+            <strong>Kapital, das lieber wirkt als nur wächst</strong>
+            <span class="note">Einstellige, planbare Rendite reicht — wenn der Überschuss tatsächlich Netzstabilität und PV-Ausbau finanziert.</span>
+          </div>
+        </li>
+        <li>
+          <span class="mark" aria-hidden="true">⚙</span>
+          <div>
+            <strong>Technisches Know-how</strong>
+            <span class="note">Anlagenplanung, Netzanschlussverfahren, Ausschreibungslogik, Monitoring — jede Erfahrung hilft beim Start.</span>
+          </div>
+        </li>
+        <li>
+          <span class="mark" aria-hidden="true">DE</span>
+          <div>
+            <strong>Bundesweit, vorerst ohne Regionsgrenze</strong>
+            <span class="note">Für gemeinsame Gebote müssen Anlagen später in derselben Regelzone liegen — das sortieren wir, sobald wir wissen, wer alles mitmacht.</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="mitmachen">
+    <div class="shell">
+      <div class="join">
+        <span class="stamp">Erster Entwurf</span>
+        <h2 style="margin-top: 1.1rem;">Noch kein Formular. Erstmal ein Anfang.</h2>
+        <p class="prose" style="margin-top: 1rem; color: var(--text-low);">
+          Diese Seite ist der erste Aufschlag, kein fertiges Angebot. Ein echter Kontaktweg —
+          mit echtem Namen, nicht mehr Platzhalter — folgt, sobald klar ist, ob und wie sich
+          genug Mitstreiter:innen finden.
+        </p>
+        <p class="join-contact">
+          Kontakt: <span class="placeholder">wird-ergänzt@platzhalter.de</span>
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="shell">
+    <p class="legal">
+      Diese Seite beschreibt eine unverbindliche Projektidee auf Basis öffentlich verfügbarer
+      Informationen zum Strom-Versorgungssicherheits- und Kapazitätengesetz (StromVKG, Stand
+      August 2026) sowie eigener Beispielrechnungen. Sie ist <strong>kein Angebot, keine
+      Kapitalanlage und keine Anlageberatung</strong> und begründet keinerlei Zusicherung
+      künftiger Erträge. Alle genannten Zahlen sind Näherungswerte zur Einordnung, keine
+      verbindlichen Konditionen.
+    </p>
+    <p class="legal">
+      Bezug auf die Bundeswirtschaftsministerin Katherina Reiche erfolgt als politische
+      Meinungsäußerung zu einem laufenden Gesetzgebungsverfahren in ihrer amtlichen Funktion.
+    </p>
+    <div class="foot-row">
+      <span>Gegenkraftwerk — Entwurf, August 2026</span>
+      <span>Kein Tracking, keine Cookies, kein Konzern</span>
+    </div>
+  </div>
+</footer>
