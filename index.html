@@ -155,6 +155,10 @@
 
   nav.top-links a:hover { color: var(--text-high); border-color: var(--accent); }
 
+  @media (max-width: 34rem) {
+    nav.top-links { display: none; }
+  }
+
   /* ---------- Hero ---------- */
 
   .hero {
@@ -398,12 +402,14 @@
     text-transform: uppercase;
     font-family: ui-monospace, "SF Mono", Consolas, monospace;
     max-width: 11ch;
+    min-width: 0;
   }
 
   .compare-row dd {
     margin: 0;
     text-align: right;
     font-weight: 600;
+    min-width: 0;
   }
 
   .compare-col.us .compare-row dd { color: var(--accent); }
@@ -521,7 +527,7 @@
   <section class="hero">
     <div class="shell">
       <span class="kicker">Offener Brief &amp; Projektskizze · August 2026</span>
-      <h1>Danke, Katherina&nbsp;Reiche,<br>für die <em>Gelegenheit.</em></h1>
+      <h1>Danke, Katherina Reiche,<br>für die <em>Gelegenheit.</em></h1>
       <p class="hero-sub">
         Ihr Kapazitätsmarkt zahlt <strong>bis zu 3,66&nbsp;Mio.&nbsp;€ pro Megawatt</strong> an
         jeden, der ein neues Gaskraftwerk baut — 15&nbsp;Jahre garantiert, bezahlt von allen
