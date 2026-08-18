@@ -482,9 +482,14 @@
     color: var(--text-faint);
   }
 
-  .join-contact .placeholder {
-    color: var(--text-low);
-    border-bottom: 1px dashed var(--line);
+  .join-contact a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+  }
+
+  .join-contact a:hover {
+    border-bottom-width: 2px;
   }
 
   /* ---------- Footer ---------- */
@@ -756,12 +761,11 @@
         <span class="stamp">Erster Entwurf</span>
         <h2 style="margin-top: 1.1rem;">Noch kein Formular. Erstmal ein Anfang.</h2>
         <p class="prose" style="margin-top: 1rem; color: var(--text-low);">
-          Diese Seite ist der erste Aufschlag, kein fertiges Angebot. Ein echter Kontaktweg —
-          mit echtem Namen, nicht mehr Platzhalter — folgt, sobald klar ist, ob und wie sich
-          genug Mitstreiter:innen finden.
+          Diese Seite ist der erste Aufschlag, kein fertiges Angebot. Schreib uns, wenn du
+          Standort, Kapital oder technisches Know-how mitbringst.
         </p>
         <p class="join-contact">
-          Kontakt: <span class="placeholder">wird-ergänzt@platzhalter.de</span>
+          Kontakt: <a href="mailto:info@gegenkraftwerk.de">info@gegenkraftwerk.de</a>
         </p>
       </div>
     </div>
