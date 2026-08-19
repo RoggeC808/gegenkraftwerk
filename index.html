@@ -18,6 +18,7 @@
     --accent-dim: #c98f0022;
     --rust: #9c3b1c;
     --rust-dim: #9c3b1c1a;
+    --rust-soft: #b5715c;
     --focus: #0b6e6e;
     --grid-line: #10151a12;
   }
@@ -36,6 +37,7 @@
       --accent-dim: #f3b80722;
       --rust: #e0774a;
       --rust-dim: #e0774a22;
+      --rust-soft: #d99a83;
       --focus: #5fd6d6;
       --grid-line: #f1efe40d;
     }
@@ -54,6 +56,7 @@
     --accent-dim: #f3b80722;
     --rust: #e0774a;
     --rust-dim: #e0774a22;
+    --rust-soft: #d99a83;
     --focus: #5fd6d6;
     --grid-line: #f1efe40d;
   }
@@ -469,6 +472,92 @@
 
   .criteria span.note { color: var(--text-low); font-size: 0.95rem; }
 
+  /* ---------- FAQ ---------- */
+
+  .faq-group + .faq-group { margin-top: 2.5rem; }
+
+  .faq-group h3 {
+    font-family: ui-sans-serif, "Arial Narrow", "Helvetica Neue Condensed Bold",
+      "Roboto Condensed", Arial, sans-serif;
+    font-stretch: condensed;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--line);
+    margin: 0 0 0.25rem;
+  }
+
+  .faq-item { border-bottom: 1px dashed var(--line); }
+  .faq-item:last-child { border-bottom: none; }
+
+  .faq-item summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+    padding: 1rem 0;
+    font-weight: 700;
+  }
+
+  .faq-item summary::-webkit-details-marker { display: none; }
+
+  .faq-q {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .faq-q::before {
+    content: "+";
+    display: inline-block;
+    width: 1em;
+    color: var(--accent);
+    font-family: ui-monospace, monospace;
+    font-weight: 800;
+  }
+
+  .faq-item[open] .faq-q::before { content: "–"; }
+
+  .faq-status {
+    flex: none;
+    font-family: ui-monospace, "SF Mono", Consolas, monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.25em 0.6em;
+    border: 1px solid;
+    white-space: nowrap;
+  }
+
+  .faq-status.ok { color: var(--focus); border-color: var(--focus); }
+  .faq-status.open { color: var(--rust); border-color: var(--rust); background: var(--rust-dim); }
+  .faq-status.likely { color: var(--rust-soft); border-color: var(--rust-soft); background: var(--rust-dim); }
+
+  .faq-a {
+    margin: 0 0 1.25rem;
+    padding-left: 1.4rem;
+    max-width: 44rem;
+    color: var(--text-low);
+    font-size: 0.98rem;
+  }
+
+  .faq-a p + p { margin-top: 0.8em; }
+
+  .faq-legend {
+    margin-top: 2.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    font-size: 0.82rem;
+    color: var(--text-faint);
+  }
+
+  .faq-legend span { display: inline-flex; align-items: center; gap: 0.5em; }
+
   /* ---------- Join panel ---------- */
 
   .join {
@@ -544,6 +633,7 @@
       <a href="#idee">Die Idee</a>
       <a href="#zahlen">Die Zahlen</a>
       <a href="#vorteile">Euer Vorteil</a>
+      <a href="#faq">FAQ</a>
       <a href="#mitmachen">Mitmachen</a>
     </nav>
   </div>
@@ -878,6 +968,449 @@
           </div>
         </li>
       </ul>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="shell">
+      <div class="section-head">
+        <div>
+          <span class="tag">06 — Fragen &amp; offene Punkte</span>
+          <h2>Was uns selbst noch nicht restlos klar ist</h2>
+        </div>
+        <p class="lede">
+          Ehrlich beantwortet, wo wir eine Antwort haben — und offen markiert, wo wir selbst noch
+          auf Klärung warten. Diese Liste wächst, sobald neue Fragen dazukommen.
+        </p>
+      </div>
+
+      <div class="faq-group">
+        <h3>Ausstieg &amp; Risiko</h3>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Kann ich als Mitstreiter:in vorzeitig aussteigen?</span>
+            <span class="faq-status open">In Klärung</span>
+          </summary>
+          <div class="faq-a">
+            <p>
+              Hängt von der konkreten Vertragsstruktur ab, die wir noch mit einer Leasinggesellschaft
+              und untereinander festlegen. Unser Ziel: ein Rahmenleasingvertrag mit standardisierten
+              Einzelverträgen pro Standort, sodass ein einzelner Standort unabhängig von den anderen
+              starten und enden kann. Fristen und Konditionen verhandeln wir, sobald ein
+              Leasingpartner feststeht.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Was passiert bei Insolvenz meines Betriebs?</span>
+            <span class="faq-status open">In Klärung</span>
+          </summary>
+          <div class="faq-a">
+            <p>
+              Generator und Batterie sind typischerweise Sicherungseigentum der Leasinggesellschaft,
+              nicht frei verwertbare Insolvenzmasse — beide sind zudem etablierte, weiterverkaufbare
+              Anlagenklassen mit Sachwert. Für den Pool wichtig: Ein einzelner Ausfall reißt die
+              anderen Standorte nicht automatisch mit, aber eine Ersatzkapazität muss selbst
+              präqualifiziert sein. Die genaue Poolvertragsstruktur dafür steht noch nicht.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Was, wenn ich mein Grundstück verkaufe?</span>
+            <span class="faq-status open">In Klärung</span>
+          </summary>
+          <div class="faq-a">
+            <p>
+              Grundsätzlich soll die Anlage übertragbar sein, wenn der neue Eigentümer die
+              Nutzungsbedingungen fortführt, oder abgebaut/umgesetzt werden können. Details regeln
+              wir vertraglich, sobald die ersten Standortverträge anstehen.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Hafte ich mit meinem ganzen Unternehmen oder nur mit der Anlage?</span>
+            <span class="faq-status open">In Klärung</span>
+          </summary>
+          <div class="faq-a">
+            <p>
+              Hängt von der gewählten Struktur pro Standort ab (z. B. eigene Objektgesellschaft
+              versus direkte Beteiligung im bestehenden Betrieb). Wir planen mit einer Struktur, die
+              das unternehmerische Risiko auf die Anlage selbst begrenzt — final festgelegt ist das
+              noch nicht.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Was, wenn ein anderer Standort im Pool ausfällt — hafte ich mit?</span>
+            <span class="faq-status ok">Beantwortet</span>
+          </summary>
+          <div class="faq-a">
+            <p>
+              Nein. Jeder Standort ist eine eigenständig präqualifizierte 1-MW-Einheit und haftet
+              nicht für Pönalen an einem anderen Standort. Der Pool bündelt die gemeinsame
+              Gebotsabgabe, nicht die Haftung.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <div class="faq-group">
+        <h3>Finanzierung</h3>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Muss ich das Kapital selbst aufbringen, oder ist Leasing möglich?</span>
+            <span class="faq-status ok">Beantwortet</span>
+          </summary>
+          <div class="faq-a">
+            <p>
+              Leasing ist unser bevorzugtes Modell. Bei rund 7&nbsp;% Leasingzins liegt die
+              Belastung für den Generator bei etwa 60.000–75.000&nbsp;€ pro Jahr statt einer
+              Einmalzahlung von 570.000–700.000&nbsp;€ — das senkt die Einstiegshürde deutlich.
+              Details unter „Die Zahlen" oben.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Was, wenn der Zuschlagspreis unter dem Höchstwert von 244.000&nbsp;€ liegt?</span>
+            <span class="faq-status open">In Klärung</span>
+          </summary>
+          <div class="faq-a">
+            <p>
+              Realistisch — der Höchstwert ist eine Obergrenze, kein garantierter Preis. Unsere
+              veröffentlichten Zahlen rechnen bewusst konservativ, nicht mit dem Maximum. Belastbare
+              Marktclearing-Preise gibt es erst nach der ersten Ausschreibung am 8.&nbsp;September
+              2026. Eine detaillierte Best-/Base-/Downside-Rechnung stellen wir Interessent:innen
+              auf Anfrage bereit.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Wie hoch ist die Sicherheitsleistung (Bid-Bond), die ich vorstrecken muss?</span>
+            <span class="faq-status ok">Beantwortet</span>
+          </summary>
+          <div class="faq-a">
+            <p>
+              Gesetzlich in den Ausschreibungsbedingungen des StromVKG festgelegt, wird bei
+              Gebotsabgabe fällig und bei ordnungsgemäßer Erfüllung zurückerstattet. Die
+              Berechnungsformel kennen wir; die konkrete Höhe hängt vom individuellen Gebot ab.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Wer trägt das Risiko, wenn gar kein Zuschlag erfolgt?</span>
+            <span class="faq-status ok">Beantwortet</span>
+          </summary>
+          <div class="faq-a">
+            <p>
+              Ohne Zuschlag entsteht keine Bauverpflichtung — die eigentliche Investition wird erst
+              nach Zuschlag ausgelöst. Deshalb planen wir Leasingverträge mit einem
+              Finanzierungsvorbehalt bis zum Zuschlag; die genaue vertragliche Ausgestaltung klären
+              wir mit dem Leasingpartner.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <div class="faq-group">
+        <h3>Betrieb &amp; Technik</h3>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Wer wartet die Anlage, und wer zahlt dafür?</span>
+            <span class="faq-status open">In Klärung</span>
+          </summary>
+          <div class="faq-a">
+            <p>
+              Wartung ist Sache des jeweiligen Standortbetreibers, üblicherweise über einen
+              Servicevertrag mit dem Anlagenhersteller. Die Kostengröße kennen wir grob, die genaue
+              Kalkulation pro Standort erstellen wir bei konkretem Interesse.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Wie oft läuft der Generator tatsächlich?</span>
+            <span class="faq-status ok">Beantwortet</span>
+          </summary>
+          <div class="faq-a">
+            <p>
+              Nach echten Marktdaten für 2025: 17&nbsp;Ereignisse, zusammen 16&nbsp;Stunden im
+              gesamten Jahr — kein Dauerbetrieb. Details unter „Die Lage" oben.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Was passiert, wenn der Generator bei einem Abruf nicht anspringt?</span>
+            <span class="faq-status open">In Klärung</span>
+          </summary>
+          <div class="faq-a">
+            <p>
+              Es drohen Pönalen nach §&nbsp;80 StromVKG für unvollständigen Funktionsnachweis. Die
+              grundsätzliche Berechnungsmethode kennen wir, einzelne Details sind aber noch nicht in
+              letzter Klarheit von der Bundesnetzagentur veröffentlicht — genau das ist Teil unserer
+              Klärungsanfrage an die Behörde.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Brauche ich einen eigenen Gasanschluss, oder reicht die bestehende Heizung?</span>
+            <span class="faq-status ok">Beantwortet</span>
+          </summary>
+          <div class="faq-a">
+            <p>
+              Nein — der Generator braucht einen eigenen, ausreichend dimensionierten Gasanschluss,
+              unabhängig von einer vorhandenen Gebäudeheizung.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Wie laut ist das — stört das Nachbarn oder Mitarbeitende?</span>
+            <span class="faq-status ok">Beantwortet</span>
+          </summary>
+          <div class="faq-a">
+            <p>
+              Muss die TA-Lärm-Grenzwerte für das jeweilige Baugebiet einhalten. In Gewerbe- oder
+              Mischgebieten ist das mit schallgedämmten Containern in der Regel gut machbar und wird
+              im Genehmigungsverfahren pro Standort geprüft.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Kann ich die Batterie für meinen eigenen Verbrauch oder meine PV mitnutzen?</span>
+            <span class="faq-status ok">Beantwortet</span>
+          </summary>
+          <div class="faq-a">
+            <p>
+              Ja, per Multi-Use-Energiemanagement — siehe „Euer Vorteil" oben. Einschränkung: Wegen
+              der 10+1-Regel darf sie nicht als Ersatz für die StromVKG-Verfügbarkeitspflicht des
+              Generators eingesetzt werden.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Was passiert mit der H2-Pflicht ab Jahr acht der Förderlaufzeit — wer zahlt die Umrüstung?</span>
+            <span class="faq-status likely">Fundierte Annahme</span>
+          </summary>
+          <div class="faq-a">
+            <p>
+              <strong>Wir planen den Betrieb von Anfang an mit Biomethan statt
+              fossilem Erdgas — klimaneutral ab Inbetriebnahme, nicht erst, wenn es ab 2045 zur
+              Pflicht wird.</strong> Die H2-Ready-Bauverpflichtung (§&nbsp;17 StromVKG) erfüllen wir
+              zusätzlich — die Anlage wird so gebaut, dass sie technisch auf Wasserstoff
+              umrüstbar wäre. Echten Wasserstoffbetrieb planen wir aber nicht: Grüner Wasserstoff
+              kostet aktuell und laut Prognosen bis 2030 etwa das Dreifache von Erdgas (rund
+              150–240&nbsp;€/MWh gegenüber 35–56&nbsp;€/MWh) — ein wirtschaftlich kaum
+              vertretbarer Aufschlag, zumal der Gesetzgeber diese Mehrkosten nur über separat zu
+              gewinnende Förderauktionen (Differenzverträge) ausgleicht, nicht automatisch mit der
+              Kapazitätszahlung.
+            </p>
+            <p>
+              Der Brennstoffwechsel ist unkompliziert und günstig: ein langfristiger
+              <strong>Festpreis-Liefervertrag für Biomethan</strong>, von Beginn an, ohne
+              Zusatzinvestition, rund 7.000–12.000&nbsp;€ pro Jahr und Anlage bei unserem geringen
+              Bedarf (~100&nbsp;MWh/Jahr). Ein eigener Speicher ist nicht nötig — die
+              Massenbilanzierung im deutschen Gasnetz übernimmt das automatisch, ähnlich wie bei
+              Ökostrom-Zertifikaten.
+            </p>
+            <p>
+              Rechtlich verlangt § 17 nur die Bau-<em>fähigkeit</em> für Wasserstoff, die
+              Klimaneutralitätspflicht ab 2045 (§&nbsp;38 Abs.&nbsp;6) nennt dagegen keinen
+              bestimmten Brennstoff. Unsere Lesart: H2-ready bauen erfüllt die eine Pflicht,
+              klimaneutraler Biomethan-Betrieb von Anfang an erfüllt die andere — konsequent, nicht
+              nur als Reaktion auf die 2045-Frist. Das ist unsere Auslegung, noch nicht behördlich
+              bestätigt; wir haben sie zur verbindlichen Klärung bei der Bundesnetzagentur
+              eingereicht.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <div class="faq-group">
+        <h3>Standort-Voraussetzungen</h3>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Welche Mindestvoraussetzungen muss mein Standort erfüllen?</span>
+            <span class="faq-status ok">Beantwortet</span>
+          </summary>
+          <div class="faq-a">
+            <p>
+              Rund 1&nbsp;MW Netzanschlussleistung, Platz für 2–3 Standardcontainer (~60&nbsp;t
+              Gesamtgewicht auf der Batterieseite), eine Lage, in der TA Lärm und Emissionsauflagen
+              einhaltbar sind (i.&nbsp;d.&nbsp;R. Gewerbe- oder Mischgebiet), sowie die
+              Bereitschaft, sich später einer gemeinsamen Regelzone anzuschließen.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Was, wenn ich noch keine PV habe?</span>
+            <span class="faq-status ok">Beantwortet</span>
+          </summary>
+          <div class="faq-a">
+            <p>
+              Kein Ausschlusskriterium — ein Teil des Förderüberschusses kann optional eine neue
+              PV-Anlage mitfinanzieren. Details unter „Euer Vorteil" oben.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <div class="faq-group">
+        <h3>Rechtliches &amp; Zeitplan</h3>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Ist das Modell rechtlich wasserdicht?</span>
+            <span class="faq-status open">In Klärung</span>
+          </summary>
+          <div class="faq-a">
+            <p>
+              Nach unserer eigenen Prüfung und einer externen Gegenprüfung: wahrscheinlich ja — ein
+              Pool aus eigenständig 1-MW-präqualifizierten Einheiten ist regulatorisch klar von der
+              Kleinanlagenpool-Regelung zu unterscheiden, die nur Einzelanlagen unter 1&nbsp;MW
+              betrifft. Verbindlich ist das erst mit einer Antwort der Bundesnetzagentur auf unsere
+              gestellte Klärungsanfrage.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Was, wenn die Ausschreibung am 8.&nbsp;September 2026 nicht klappt?</span>
+            <span class="faq-status ok">Beantwortet</span>
+          </summary>
+          <div class="faq-a">
+            <p>
+              Es gibt einen weiteren Termin am 29.&nbsp;Dezember 2026, danach weitere jährliche
+              Runden. Ein verpasster erster Termin ist kein Show-Stopper, verzögert aber den Start.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Was, wenn StromVKG selbst juristisch gekippt wird (EU-Beschwerde des BVES)?</span>
+            <span class="faq-status open">In Klärung</span>
+          </summary>
+          <div class="faq-a">
+            <p>
+              Ein reales Risiko, das wir nicht kleinreden. Sollte die EU-Kommission die 10+1-Regel
+              kippen oder das Gesetz substanziell ändern, würde sich unsere Kalkulation ändern —
+              vermutlich eher zugunsten von Speichertechnologien. Wir beobachten das Verfahren, es
+              liegt aber außerhalb unserer Kontrolle.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Muss ich ein Gewerbe anmelden?</span>
+            <span class="faq-status ok">Beantwortet</span>
+          </summary>
+          <div class="faq-a">
+            <p>
+              Ja, für die wirtschaftliche Teilnahme an der Ausschreibung braucht jeder
+              Standortbetreiber eine geeignete unternehmerische Struktur — ein bestehendes Gewerbe
+              reicht in den meisten Fällen.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <div class="faq-group">
+        <h3>Der Pool &amp; die Organisation</h3>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Wer betreibt oder koordiniert den Pool?</span>
+            <span class="faq-status open">In Klärung</span>
+          </summary>
+          <div class="faq-a">
+            <p>
+              Aktuell im Aufbau — diese Seite ist der erste Aufschlag, kein fertiges Konsortium. Die
+              konkrete Organisationsform (z.&nbsp;B. gemeinsame Bietergesellschaft oder
+              Kooperationsvertrag) klären wir mit den ersten Mitstreiter:innen.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Wie wird sichergestellt, dass der Überschuss wirklich in Batterien fließt?</span>
+            <span class="faq-status open">In Klärung</span>
+          </summary>
+          <div class="faq-a">
+            <p>
+              Berechtigte Frage, die wir selbst noch nicht final gelöst haben. Denkbar sind eine
+              vertragliche Investitionsverpflichtung pro Standort oder eine unabhängige jährliche
+              Übersicht. Wie genau wir das prüfbar machen, legen wir mit den ersten
+              Mitstreiter:innen fest.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Was passiert nach den 15 Jahren Förderlaufzeit?</span>
+            <span class="faq-status ok">Beantwortet</span>
+          </summary>
+          <div class="faq-a">
+            <p>
+              Generator und Batterie sind dann vollständig oder größtenteils amortisiert.
+              Weiterbetrieb am freien Markt, Repowering oder Rückbau ist dann eine Entscheidung des
+              jeweiligen Standorts.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Kann ein Betrieb auch mehrere Standorte übernehmen?</span>
+            <span class="faq-status ok">Beantwortet</span>
+          </summary>
+          <div class="faq-a">
+            <p>
+              Grundsätzlich ja, solange jede Einheit für sich die Voraussetzungen erfüllt —
+              Netzanschluss, Platz und eigenständige Präqualifikation.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <div class="faq-legend">
+        <span><span class="faq-status ok" style="position: static;">Beantwortet</span> — geklärt, ggf. mit Detail auf Anfrage</span>
+        <span><span class="faq-status likely" style="position: static;">Fundierte Annahme</span> — eigene, recherchegestützte Auslegung, offiziell noch unbestätigt</span>
+        <span><span class="faq-status open" style="position: static;">In Klärung</span> — echte offene Frage, teils bei der BNetzA angefragt</span>
+      </div>
     </div>
   </section>
 
